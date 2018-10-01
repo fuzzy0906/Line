@@ -10,7 +10,8 @@ var bot = linebot({
 
 var message = {
     "你好":"我不好",
-    "你是誰":"我是ㄐ器人"
+    "你是誰":"我是ㄐ器人",
+	"你幾歲":"我10歲"
 };
 
 bot.on('message', function (event) {
@@ -30,5 +31,6 @@ app.post('/', linebotParser);
 
 var server = app.listen(process.env.PORT || 8080, function () {
     var port = server.address().port;
+	bot.push('U6bb0958b3ed12c5e75b310f4192a3ed8','Server is ready');
     console.log("App now running on port", port);
 });
