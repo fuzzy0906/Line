@@ -46,7 +46,8 @@ const linebotParser = bot.parser();
 app.post('/', linebotParser);
 
 var server = app.listen(process.env.PORT || 8080, function () {
-    var port = server.address().port;
+    var port = server.address().port;	
+	bot.push('U1372640af7b78a14c4aa235890c86f1e','Server is ready');
 	bot.push('U6bb0958b3ed12c5e75b310f4192a3ed8','Server is ready');
     console.log("App now running on port", port);
 });
