@@ -11,7 +11,7 @@ var bot = linebot({
 var message = {
     "你好":"我不好",
     "你是誰":"我是ㄐ器人",
-	"你幾歲":"我10歲"
+    "你幾歲":"我10歲"
 };
 
 bot.on('message', function (event) {
