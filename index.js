@@ -44,6 +44,9 @@ bot.on('beacon', function (event) {
 const app = express();
 const linebotParser = bot.parser();
 app.post('/', linebotParser);
+app.get('/', function(req, res) {
+    res.send('Welcome to LineBot');
+});
 
 var server = app.listen(process.env.PORT || 8080, function () {
     var port = server.address().port;	
