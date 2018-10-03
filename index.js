@@ -4,7 +4,7 @@ var path = require('path');
 
 var bot = linebot({
     channelId: '1611515190',
-    channelSecret: '388145671672df91c832a337d5aac4d9',
+    channelSecret: '1876b0d86a9997f85174f4d2158267ad',
     channelAccessToken: 'eHizQwEUizvGlzAAZSPAitvKi7u2hEKqeuJgttfhDvzC1WbLNYBs7odH4RXt7Pzx6FS42ayJU1DSKGfs74JAofDSbXZL9/QC2v7S9tyLs31ZWSv942cIuQZi6QGPl8axWehXfgnyJydKK73/VpnvHwdB04t89/1O/w1cDnyilFU='
 });
 
