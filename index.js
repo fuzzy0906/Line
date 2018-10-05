@@ -1,6 +1,7 @@
 var linebot = require('linebot');
 var express = require('express');
 var path = require('path');
+require('webduino-js');
 
 var bot = linebot({
     channelId: '1611515190',
