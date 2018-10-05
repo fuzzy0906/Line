@@ -18,6 +18,16 @@ var message = {
     "你幾歲":"我10歲"
 };
 
+var firebase = require("firebase");
+var config = {
+    apiKey: "AIzaSyCei0sdjzXGBK4XYPARmIpNQ5_xr6vxoZE",
+    authDomain: "linedemo-dfebc.firebaseapp.com",
+    databaseURL: "https://linedemo-dfebc.firebaseio.com",
+    storageBucket: "linedemo-dfebc.appspot.com",
+};
+firebase.initializeApp(config);
+var db = firebase.database();
+
 var relay;
 
 boardReady({device: '8BYgM'}, function (board) {
@@ -28,20 +38,34 @@ boardReady({device: '8BYgM'}, function (board) {
 });
 
 bot.on('message', function (event) {
-    var respone;
     if(event.message.text === '開燈'){
         relay.on();
-	respone = "已開燈";
+        bot.reply("已開燈");
     }else if(event.message.text === '關燈'){
         relay.off();	    
-	respone = "已關燈";
-    }else if(message[event.message.text]){
-        respone = message[event.message.text];
-    }else{
-        respone = '我不懂你說的 ['+event.message.text+']';
+        bot.reply("已關燈");
+    }else{	
+	var ref = db.ref("/" + event.message.text);
+	ref.once("value",function (e) {
+	    console.log(e.val());
+	})
     }
-	console.log(event.message.text + ' -> ' + respone);
-    bot.reply(event.replyToken, respone);
+	
+    //var respone;
+    //if(event.message.text === '開燈'){
+    //    relay.on();
+    //    respone = "已開燈";
+    //}else if(event.message.text === '關燈'){
+    //    relay.off();	    
+    //    respone = "已關燈";
+    //}else if(message[event.message.text]){
+    //    respone = message[event.message.text];
+    //}else{
+    //    respone = '我不懂你說的 ['+event.message.text+']';
+    //}
+	//console.log(event.message.text + ' -> ' + respone);
+    //bot.reply(event.replyToken, respone);
+	
 });
 
 bot.on('beacon', function (event) {
