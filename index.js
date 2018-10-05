@@ -3,6 +3,8 @@ var express = require('express');
 var path = require('path');
 require('webduino-js');
 require('webduino-blockly');
+var temperature = 0;
+var humidity = 0;
 
 var bot = linebot({
     channelId: '1611515190',
@@ -29,11 +31,17 @@ firebase.initializeApp(config);
 var db = firebase.database();
 
 var relay;
+var dht;
 
 boardReady({device: '8BYgM'}, function (board) {
   board.systemReset();
   board.samplingInterval = 50;
   relay = getRelay(board, 10);
+  dht = getDht(board, 11);
+  dht.read(function(evt){
+      temperature = dht.temperature;
+      humidity = dht.humidity;
+  },1000);
   relay.off();
 });
 
@@ -44,6 +52,8 @@ bot.on('message', function (event) {
     }else if(event.message.text === '關燈'){
         relay.off();	    
         bot.reply(event.replyToken, "已關燈");
+    }else if(event.message.text === '溫溼度'){
+        bot.reply(event.replyToken, "現在的溫度: " + dht.temperature + " 濕度: dht.humidity");	    
     }else{	
 	var ref = db.ref("/" + event.message.text);
 	ref.once("value",function (e) {
