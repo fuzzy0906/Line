@@ -40,10 +40,10 @@ boardReady({device: '8BYgM'}, function (board) {
 bot.on('message', function (event) {
     if(event.message.text === '開燈'){
         relay.on();
-        bot.reply("已開燈");
+        bot.reply(event.replyToken, "已開燈");
     }else if(event.message.text === '關燈'){
         relay.off();	    
-        bot.reply("已關燈");
+        bot.reply(event.replyToken, "已關燈");
     }else{	
 	var ref = db.ref("/" + event.message.text);
 	ref.once("value",function (e) {
