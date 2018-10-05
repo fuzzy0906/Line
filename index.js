@@ -47,8 +47,14 @@ bot.on('message', function (event) {
     }else{	
 	var ref = db.ref("/" + event.message.text);
 	ref.once("value",function (e) {
-	    bot.push(event.source.userId,e.val());
-            console.log(event.message.text + " ====> " + e.val());
+ 	    var respone;
+	    if(e.val()){
+	        respone = e.val();
+	    }else{
+	        respone = '我不懂你說的 ['+event.message.text+']';
+	    }
+	    bot.push(event.source.userId,respone);
+            console.log(event.message.text + " ====> " + respone);
 	})
     }
 	
