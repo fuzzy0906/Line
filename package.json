@@ -9,6 +9,7 @@
     "body-parser": "~1.17.1",
     "express": "~4.15.2",
     "linebot": "^1.4.1",
-    "webduino-js": "^0.4.26"
+    "webduino-js": "^0.4.26",
+    "webduino-blockly": "^0.0.12"
   }
 }
