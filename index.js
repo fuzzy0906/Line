@@ -20,10 +20,10 @@ var message = {
 
 var firebase = require("firebase");
 var config = {
-    apiKey: "AIzaSyCei0sdjzXGBK4XYPARmIpNQ5_xr6vxoZE",
-    authDomain: "linedemo-dfebc.firebaseapp.com",
-    databaseURL: "https://linedemo-dfebc.firebaseio.com",
-    storageBucket: "linedemo-dfebc.appspot.com",
+    apiKey: "AIzaSyAkIc2U-MfqrCiX2RA6KyHTzgzNub2lvt0",
+    authDomain: "line-bc91d.firebaseapp.com",
+    databaseURL: "https://line-bc91d.firebaseio.com",
+    storageBucket: "line-bc91d.appspot.com",
 };
 firebase.initializeApp(config);
 var db = firebase.database();
