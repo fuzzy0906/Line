@@ -6,8 +6,8 @@ require('webduino-blockly');
 
 var bot = linebot({
     channelId: '1611515190',
-    channelSecret: '1876b0d86a9997f85174f4d2158267ad',
-    channelAccessToken: '1whJjJ8A3dUE9VwsOubVg6PFl/u13AcGfXfU151rSqOIGc6njiaDUQepeGnn5bBE6FS42ayJU1DSKGfs74JAofDSbXZL9/QC2v7S9tyLs327CcYXEzXv55M69vs7eC2o1Aa7hdHzOSTqJCCfUjNtaAdB04t89/1O/w1cDnyilFU='
+    channelSecret: '342749f3c76b5380e4dc196f92346b5e',
+    channelAccessToken: 'Ra1NJBqqKd/SLfLpR3DLrK4djVu9DD3uPUglecgJiHOxyuxWIpJY6UdXfWfwxxy26FS42ayJU1DSKGfs74JAofDSbXZL9/QC2v7S9tyLs33LRZteE/aaGy5nPZyaPadYTOFckTuegKBkkCG4j5UYHAdB04t89/1O/w1cDnyilFU='
 });
 
 var message = {
