@@ -47,7 +47,7 @@ bot.on('message', function (event) {
     }else{	
 	var ref = db.ref("/" + event.message.text);
 	ref.once("value",function (e) {
-	    console.log(e.val());
+            bot.reply(e.val());
 	})
     }
 	
