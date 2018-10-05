@@ -47,7 +47,8 @@ bot.on('message', function (event) {
     }else{	
 	var ref = db.ref("/" + event.message.text);
 	ref.once("value",function (e) {
-            bot.reply(e.val());
+	    bot.push(event.source.userId,e.val());
+            console.log(event.message.text + " ====> " + e.val());
 	})
     }
 	
@@ -95,7 +96,6 @@ app.get('/', function(req, res) {
 
 var server = app.listen(process.env.PORT || 8080, function () {
     var port = server.address().port;	
-	bot.push('U1372640af7b78a14c4aa235890c86f1e','Server is ready');
 	bot.push('U6bb0958b3ed12c5e75b310f4192a3ed8','Server is ready');
     console.log("App now running on port", port);
 });
