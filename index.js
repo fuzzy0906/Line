@@ -17,9 +17,24 @@ var message = {
     "你幾歲":"我10歲"
 };
 
+var relay;
+
+boardReady({device: '8BYgM'}, function (board) {
+  board.systemReset();
+  board.samplingInterval = 50;
+  relay = getRelay(board, 10);
+  relay.off();
+});
+
 bot.on('message', function (event) {
     var respone;
-    if(message[event.message.text]){
+    if(event.message.text === '開燈'){
+        relay.on();
+	respone = "已開燈";
+    }else if(event.message.text === '關燈'){
+        relay.off();	    
+	respone = "已關燈";
+    }else if(message[event.message.text]){
         respone = message[event.message.text];
     }else{
         respone = '我不懂你說的 ['+event.message.text+']';
@@ -33,10 +48,12 @@ bot.on('beacon', function (event) {
     var respone;
     switch(event.beacon.type){
         case 'enter':
-               respone = '你進入教室';
+              respone = '你進入教室';
+              relay.on();
               break;
         case 'leave':
-             respone = '你離開教室';
+              respone = '你離開教室';
+              relay.off();	    
              break;
         default:
              respone = '我壞掉了';
