@@ -53,7 +53,7 @@ bot.on('message', function (event) {
         relay.off();	    
         bot.reply(event.replyToken, "已關燈");
     }else if(event.message.text === '溫溼度'){
-        bot.reply(event.replyToken, "現在的溫度: " + dht.temperature + " 濕度: dht.humidity");	    
+        bot.reply(event.replyToken, "現在的溫度: " + dht.temperature + " 濕度: "+dht.humidity);	    
     }else{	
 	var ref = db.ref("/" + event.message.text);
 	ref.once("value",function (e) {
