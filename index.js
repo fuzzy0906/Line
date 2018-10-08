@@ -26,25 +26,27 @@ var relay;
 var relayStatus = 'off';
 var dht;
 var ultrasonic;
+var main;
 
 boardReady({device: '8BYgM'}, function (board) {
-  board.systemReset();
-  board.samplingInterval = 50;
-  relay = getRelay(board, 10);
-  relayCollector(false);
-  dht = getDht(board, 11);
-  dht.read(function(evt){
-      temperature = dht.temperature;
-      humidity = dht.humidity;
-  },1000);
-  ultrasonic = getUltrasonic(board, 9, 6);
-  ultrasonic.ping(function(cm){
-    if (ultrasonic.distance > 30) {
-        relayCollector(true);
-    }else{
-        relayCollector(false);
-    }
-  },500);
+    main = board;
+    board.systemReset();
+    board.samplingInterval = 50;
+    relay = getRelay(board, 10);
+    relayCollector(false);
+    dht = getDht(board, 11);
+    dht.read(function(evt){
+        temperature = dht.temperature;
+        humidity = dht.humidity;
+    },1000);
+    ultrasonic = getUltrasonic(board, 9, 6);
+    ultrasonic.ping(function(cm){
+        if (ultrasonic.distance > 30) {
+            relayCollector(true);
+        }else{
+            relayCollector(false);
+        }
+    },500);
 });
 
 function relayCollector(status){
@@ -66,6 +68,9 @@ function relayCollector(status){
 }
 
 var handle = {
+    "開發版狀態": function (event) {
+        event.reply("開發版狀態: " + main.isConnected);
+    },
     "開燈": function (event) {
         if(relayCollector(true)){
             event.reply("已開燈");
@@ -119,10 +124,10 @@ bot.on('beacon', function (event) {
             break;
         default:
             respone = '我壞掉了';
-     }
-     if(respone){
-         event.reply(respone);
-     }
+    }
+    if(respone){
+        event.reply(respone);
+    }
 });
 
 const app = express();
@@ -135,7 +140,7 @@ app.get('/', function(req, res) {
 });
 
 var server = app.listen(process.env.PORT || 8080, function () {
-    var port = server.address().port;	
-	bot.push('U6bb0958b3ed12c5e75b310f4192a3ed8','Server is ready');
+    var port = server.address().port;
+    bot.push('U6bb0958b3ed12c5e75b310f4192a3ed8','Server is ready');
     console.log("App now running on port", port);
 });
