@@ -69,6 +69,12 @@ function relayCollector(status){
 
 var handle = {
     "開發版狀態": function (event) {
+        console.log(main.isConnected);
+        if(main.isConnected){
+            console.log(1);
+        }else{
+            console.log(2);
+        }
         event.reply("開發版狀態: " + main.isConnected ? "連線中":"中斷連線");
     },
     "開燈": function (event) {
@@ -141,6 +147,6 @@ app.get('/', function(req, res) {
 
 var server = app.listen(process.env.PORT || 8080, function () {
     var port = server.address().port;
-    bot.push('U6bb0958b3ed12c5e75b310f4192a3ed8','Server is ready');
+    // bot.push('U6bb0958b3ed12c5e75b310f4192a3ed8','Server is ready');
     console.log("App now running on port", port);
 });
