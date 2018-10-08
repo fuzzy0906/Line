@@ -12,14 +12,6 @@ var bot = linebot({
     channelAccessToken: 'Ra1NJBqqKd/SLfLpR3DLrK4djVu9DD3uPUglecgJiHOxyuxWIpJY6UdXfWfwxxy26FS42ayJU1DSKGfs74JAofDSbXZL9/QC2v7S9tyLs33LRZteE/aaGy5nPZyaPadYTOFckTuegKBkkCG4j5UYHAdB04t89/1O/w1cDnyilFU='
 });
 
-var message = {
-    "你好嗎":"我很好謝謝",
-    "你是誰":"我是機器人",
-    "你很棒":"謝謝你的誇獎",
-    "你的名字":"楊榮仁",
-    "你幾歲":"我10歲"
-};
-
 var firebase = require("firebase");
 var config = {
     apiKey: "AIzaSyAkIc2U-MfqrCiX2RA6KyHTzgzNub2lvt0",
@@ -45,44 +37,36 @@ boardReady({device: '8BYgM'}, function (board) {
   relay.off();
 });
 
-bot.on('message', function (event) {
-    if(event.message.text === '開燈'){
+var handle = {
+    "開燈": function (event) {
         relay.on();
-        bot.reply(event.replyToken, "已開燈");
-    }else if(event.message.text === '關燈'){
-        relay.off();	    
-        bot.reply(event.replyToken, "已關燈");
-    }else if(event.message.text === '溫溼度'){
-        bot.reply(event.replyToken, "現在的溫度: " + dht.temperature + " 濕度: "+dht.humidity);	    
-    }else{	
-	var ref = db.ref("/" + event.message.text);
-	ref.once("value",function (e) {
- 	    var respone;
-	    if(e.val()){
-	        respone = e.val();
-	    }else{
-	        respone = '我不懂你說的 ['+event.message.text+']';
-	    }
-	    bot.push(event.source.userId,respone);
-            console.log(event.message.text + " ====> " + respone);
-	})
+        event.reply("已開燈");
+    },
+    "關燈": function (event) {
+        relay.on();
+        event.reply("已關燈");
+    },
+    "溫溼度":function (event) {
+        event.reply("現在的溫度: " + dht.temperature + " 濕度: "+dht.humidity);
     }
-	
-    //var respone;
-    //if(event.message.text === '開燈'){
-    //    relay.on();
-    //    respone = "已開燈";
-    //}else if(event.message.text === '關燈'){
-    //    relay.off();	    
-    //    respone = "已關燈";
-    //}else if(message[event.message.text]){
-    //    respone = message[event.message.text];
-    //}else{
-    //    respone = '我不懂你說的 ['+event.message.text+']';
-    //}
-	//console.log(event.message.text + ' -> ' + respone);
-    //bot.reply(event.replyToken, respone);
-	
+};
+
+bot.on('message', function (event) {
+    if(handle[event.message.text]){
+        handle[event.message.text](event);
+    }else{
+        var ref = db.ref("/" + event.message.text);
+        ref.once("value",function (e) {
+            var respone;
+            if(e.val()){
+                respone = e.val();
+            }else{
+                respone = '我不懂你說的 ['+event.message.text+']';
+            }
+            bot.push(event.source.userId,respone);
+            console.log(event.message.text + " ====> " + respone);
+        })
+    }
 });
 
 bot.on('beacon', function (event) {
@@ -105,9 +89,11 @@ bot.on('beacon', function (event) {
 
 const app = express();
 const linebotParser = bot.parser();
+app.set('/views', path.join(__dirname, 'views'));
+app.use('/images', express.static(path.join(__dirname, 'images')));
 app.post('/', linebotParser);
 app.get('/', function(req, res) {
-    res.send('Welcome to LineBot');
+    res.sendfile(__dirname + '/views/index.html');
 });
 
 var server = app.listen(process.env.PORT || 8080, function () {
