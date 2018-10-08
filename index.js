@@ -69,13 +69,7 @@ function relayCollector(status){
 
 var handle = {
     "開發版狀態": function (event) {
-        console.log(main.isConnected);
-        if(main.isConnected){
-            console.log(1);
-        }else{
-            console.log(2);
-        }
-        event.reply("開發版狀態: " + main.isConnected ? "連線中":"中斷連線");
+        event.reply("開發版狀態: " + (main.isConnected ? "連線中":"中斷連線"));
     },
     "開燈": function (event) {
         if(relayCollector(true)){
