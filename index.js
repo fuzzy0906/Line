@@ -40,7 +40,7 @@ boardReady({device: '8BYgM'}, function (board) {
     },1000);
     ultrasonic = getUltrasonic(board, 9, 6);
     ultrasonic.ping(function(cm){
-        if (ultrasonic.distance > 30) {
+        if (ultrasonic.distance <= 30) {
             relayCollector(true);
         }else{
             relayCollector(false);
@@ -53,6 +53,7 @@ function relayCollector(status){
         if(relayStatus === 'on'){
             return false;
         }
+        console.log("relayCollector on");
         relay.on();
         relayStatus = 'on';
         return true;
@@ -60,6 +61,7 @@ function relayCollector(status){
         if(relayStatus === 'off'){
             return false;
         }
+        console.log("relayCollector off");
         relay.off();
         relayStatus = 'off';
         return true;
