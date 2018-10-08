@@ -36,7 +36,7 @@ boardReady({device: '8BYgM'}, function (board) {
       temperature = dht.temperature;
       humidity = dht.humidity;
   },1000);
-  getUltrasonic(board, 11, 10).ping(function(cm){
+  getUltrasonic(board, 9, 6).ping(function(cm){
         if (ultrasonic.distance > 30) {
             relayCollector(true);
         }else{
