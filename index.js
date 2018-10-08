@@ -23,28 +23,60 @@ firebase.initializeApp(config);
 var db = firebase.database();
 
 var relay;
+var relayStatus = 'off';
 var dht;
 
 boardReady({device: '8BYgM'}, function (board) {
   board.systemReset();
   board.samplingInterval = 50;
   relay = getRelay(board, 10);
+  relayCollector(false);
   dht = getDht(board, 11);
   dht.read(function(evt){
       temperature = dht.temperature;
       humidity = dht.humidity;
   },1000);
-  relay.off();
+  getUltrasonic(board, 11, 10).ping(function(cm){
+        if (ultrasonic.distance > 30) {
+            relayCollector(true);
+        }else{
+            relayCollector(false);
+        }
+   },500);
 });
+
+function relayCollector(status){
+    if(status){
+        if(relayStatus === 'on'){
+            return false;
+        }
+        relay.on();
+        relayStatus = 'on';
+        return true;
+    }else{
+        if(relayStatus === 'off'){
+            return false;
+        }
+        relay.off();
+        relayStatus = 'off';
+        return true;
+    }
+}
 
 var handle = {
     "開燈": function (event) {
-        relay.on();
-        event.reply("已開燈");
+        if(relayCollector(true)){
+            event.reply("已開燈");
+        }else{
+            event.reply("已經是開燈狀態");
+        }
     },
     "關燈": function (event) {
-        relay.on();
-        event.reply("已關燈");
+        if(relayCollector(false)){
+            event.reply("已關燈");
+        }else{
+            event.reply("已經是關燈狀態");
+        }
     },
     "溫溼度":function (event) {
         event.reply("現在的溫度: " + dht.temperature + " 濕度: "+dht.humidity);
@@ -74,17 +106,21 @@ bot.on('beacon', function (event) {
     var respone;
     switch(event.beacon.type){
         case 'enter':
-              respone = '你進入教室';
-              relay.on();
-              break;
+            if(relayCollector(true)){
+                respone = '你進入教室';
+            }
+            break;
         case 'leave':
-              respone = '你離開教室';
-              relay.off();	    
-             break;
+            if(relayCollector(false)){
+                respone = '你進入教室';
+            }
+            break;
         default:
-             respone = '我壞掉了';
+            respone = '我壞掉了';
      }
-     bot.reply(event.replyToken, respone);
+     if(respone){
+         event.reply(respone);
+     }
 });
 
 const app = express();
