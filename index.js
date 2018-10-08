@@ -38,14 +38,14 @@ boardReady({device: '8BYgM'}, function (board) {
         temperature = dht.temperature;
         humidity = dht.humidity;
     },1000);
-    ultrasonic = getUltrasonic(board, 9, 6);
-    ultrasonic.ping(function(cm){
-        if (ultrasonic.distance > 30) {
-            relayCollector(true);
-        }else{
-            relayCollector(false);
-        }
-    },500);
+    // ultrasonic = getUltrasonic(board, 9, 6);
+    // ultrasonic.ping(function(cm){
+    //     if (ultrasonic.distance > 30) {
+    //         relayCollector(true);
+    //     }else{
+    //         relayCollector(false);
+    //     }
+    // },500);
 });
 
 function relayCollector(status){
@@ -68,7 +68,7 @@ function relayCollector(status){
 
 var handle = {
     "開發版狀態": function (event) {
-        event.reply("開發版狀態: " + (main.isConnected ? "連線中":"中斷連線"));
+        event.reply("開發版狀態: " + (main.isConnected ? "正常連線":"中斷連線"));
     },
     "開燈": function (event) {
         if(relayCollector(true)){
