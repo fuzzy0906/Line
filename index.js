@@ -25,6 +25,7 @@ var db = firebase.database();
 var relay;
 var relayStatus = 'off';
 var dht;
+var ultrasonic;
 
 boardReady({device: '8BYgM'}, function (board) {
   board.systemReset();
@@ -36,13 +37,14 @@ boardReady({device: '8BYgM'}, function (board) {
       temperature = dht.temperature;
       humidity = dht.humidity;
   },1000);
-  getUltrasonic(board, 9, 6).ping(function(cm){
-        if (ultrasonic.distance > 30) {
-            relayCollector(true);
-        }else{
-            relayCollector(false);
-        }
-   },500);
+  ultrasonic = getUltrasonic(board, 11, 10);
+  ultrasonic.ping(function(cm){
+    if (ultrasonic.distance > 30) {
+        relayCollector(true);
+    }else{
+        relayCollector(false);
+    }
+  },500);
 });
 
 function relayCollector(status){
