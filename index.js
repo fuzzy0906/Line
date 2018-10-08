@@ -48,7 +48,6 @@ boardReady({device: '8BYgM'}, function (board) {
 });
 
 function relayCollector(status){
-    console.log(status + " " + relayStatus)
     if(status){
         if(relayStatus === 'on'){
             return false;
