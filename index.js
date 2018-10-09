@@ -31,7 +31,7 @@ boardReady({device: '8BYgM'}, function (board) {
     board.systemReset();
     board.samplingInterval = 50;
     relay = getRelay(board, 10);
-    relayCollector(false);
+    relayCollector(false,"init");
     dht = getDht(board, 11);
     dht.read(function(evt){
         temperature = dht.temperature;
