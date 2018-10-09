@@ -25,6 +25,7 @@ var relay;
 var relayStatus = 'off';
 var dht;
 var main;
+var pir;
 
 boardReady({device: '8BYgM'}, function (board) {
     main = board;
@@ -37,6 +38,13 @@ boardReady({device: '8BYgM'}, function (board) {
         temperature = dht.temperature;
         humidity = dht.humidity;
     },1000);
+    pir = getPir(board, 7);
+    pir.on("detected", function(){
+        relayCollector(true);
+    });
+    pir.on("ended", function(){
+        relayCollector(false);
+    });
 });
 
 function relayCollector(status){
