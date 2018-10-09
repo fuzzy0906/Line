@@ -40,9 +40,11 @@ boardReady({device: '8BYgM'}, function (board) {
     pir = getPir(board, 7);
     pir.on("detected", function(){
         relayCollector(true,"pir");
+        bot.push('U6bb0958b3ed12c5e75b310f4192a3ed8','有人靠近了');
     });
     pir.on("ended", function(){
         relayCollector(false,"pir");
+        bot.push('U6bb0958b3ed12c5e75b310f4192a3ed8','有人靠近了');
     });
 });
 
@@ -144,10 +146,3 @@ var server = app.listen(process.env.PORT || 8080, function () {
     bot.push('U6bb0958b3ed12c5e75b310f4192a3ed8','Server is ready');
     console.log("App now running on port", port);
 });
-
-function run(){
-    setTimeout(function(){
-        run();
-    },1000);
-}
-run();
