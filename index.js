@@ -31,13 +31,13 @@ boardReady({device: '8BYgM'}, function (board) {
     board.systemReset();
     board.samplingInterval = 50;
     relay = getRelay(board, 10);
-    relayCollector(false,"init");
     dht = getDht(board, 11);
+    pir = getPir(board, 7);
+    relayCollector(false,"init");
     dht.read(function(evt){
         temperature = dht.temperature;
         humidity = dht.humidity;
     },1000);
-    pir = getPir(board, 7);
     pir.on("detected", function(){
         relayCollector(true,"pir");
         bot.push('U6bb0958b3ed12c5e75b310f4192a3ed8','有人靠近了');
