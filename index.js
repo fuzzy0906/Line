@@ -144,3 +144,10 @@ var server = app.listen(process.env.PORT || 8080, function () {
     bot.push('U6bb0958b3ed12c5e75b310f4192a3ed8','Server is ready');
     console.log("App now running on port", port);
 });
+
+function run(){
+    setTimeout(function(){
+        run();
+    },1000);
+}
+run();
