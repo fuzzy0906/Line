@@ -22,7 +22,6 @@ var config = {
 firebase.initializeApp(config);
 var db = firebase.database();
 var relay;
-var relayStatus = 'off';
 var dht;
 var main;
 var pir;
@@ -47,6 +46,7 @@ boardReady({device: '8BYgM'}, function (board) {
     });
 });
 
+var relayStatus = 'none';
 function relayCollector(status){
     if(status){
         if(relayStatus === 'on'){
