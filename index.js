@@ -39,20 +39,20 @@ boardReady({device: '8BYgM'}, function (board) {
     },1000);
     pir = getPir(board, 7);
     pir.on("detected", function(){
-        relayCollector(true);
+        relayCollector(true,"pir");
     });
     pir.on("ended", function(){
-        relayCollector(false);
+        relayCollector(false,"pir");
     });
 });
 
 var relayStatus = 'none';
-function relayCollector(status){
+function relayCollector(status,who){
     if(status){
         if(relayStatus === 'on'){
             return false;
         }
-        console.log("relayCollector on");
+        console.log("RelayCollector on by " + who);
         relay.on();
         relayStatus = 'on';
         return true;
@@ -60,7 +60,7 @@ function relayCollector(status){
         if(relayStatus === 'off'){
             return false;
         }
-        console.log("relayCollector off");
+        console.log("RelayCollector off by " + who);
         relay.off();
         relayStatus = 'off';
         return true;
@@ -72,14 +72,14 @@ var handle = {
         event.reply("開發版狀態: " + (main.isConnected ? "正常連線":"中斷連線"));
     },
     "開燈": function (event) {
-        if(relayCollector(true)){
+        if(relayCollector(true,"message")){
             event.reply("已開燈");
         }else{
             event.reply("已經是開燈狀態");
         }
     },
     "關燈": function (event) {
-        if(relayCollector(false)){
+        if(relayCollector(false,"message")){
             event.reply("已關燈");
         }else{
             event.reply("已經是關燈狀態");
@@ -113,12 +113,12 @@ bot.on('beacon', function (event) {
     var respone;
     switch(event.beacon.type){
         case 'enter':
-            if(relayCollector(true)){
+            if(relayCollector(true,"beacon")){
                 respone = '你進入教室';
             }
             break;
         case 'leave':
-            if(relayCollector(false)){
+            if(relayCollector(false,"beacon")){
                 respone = '你進入教室';
             }
             break;
