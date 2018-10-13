@@ -26,26 +26,29 @@ var dht;
 var main;
 var pir;
 
-boardReady({device: '8BYgM'}, function (board) {
-    main = board;
-    board.systemReset();
-    board.samplingInterval = 50;
-    relay = getRelay(board, 10);
-    dht = getDht(board, 11);
-    pir = getPir(board, 7);
-    relayCollector(false,"init");
-    dht.read(function(evt){
-        temperature = dht.temperature;
-        humidity = dht.humidity;
-    },1000);
-    pir.on("detected", function(){
-        relayCollector(true,"pir");
-        bot.push('U6bb0958b3ed12c5e75b310f4192a3ed8','有人靠近了');
+function connectionBoard(){
+    boardReady({device: '8BYgM'}, function (board) {
+        main = board;
+        board.systemReset();
+        board.samplingInterval = 50;
+        relay = getRelay(board, 10);
+        dht = getDht(board, 11);
+        pir = getPir(board, 7);
+        relayCollector(false,"init");
+        dht.read(function(evt){
+            temperature = dht.temperature;
+            humidity = dht.humidity;
+        },1000);
+        pir.on("detected", function(){
+            relayCollector(true,"pir");
+            bot.push('U6bb0958b3ed12c5e75b310f4192a3ed8','有人靠近了');
+        });
+        pir.on("ended", function(){
+            relayCollector(false,"pir");
+        });
     });
-    pir.on("ended", function(){
-        relayCollector(false,"pir");
-    });
-});
+}
+connectionBoard();
 
 var relayStatus = 'none';
 function relayCollector(status,who){
@@ -70,7 +73,35 @@ function relayCollector(status,who){
 
 var handle = {
     "開發版狀態": function (event) {
-        event.reply("開發版狀態: " + (main.isConnected ? "正常連線":"中斷連線"));
+        var message = [];
+        message.push("開發版狀態: " + (main.isConnected ? "正常連線":"中斷連線"));
+        if(!main.isConnected){
+            message.push({
+                "type": "text",
+                "text": "是否重新連線開發版?",
+                "quickReply": {
+                    "items": [
+                        {
+                            "type": "action",
+                            "action": {
+                                "type": "postback",
+                                "label": "是",
+                                "data": JSON.stringify({TYPE:"BOARD",DATA: true})
+                            }
+                        },
+                        {
+                            "type": "action",
+                            "action": {
+                                "type": "postback",
+                                "label": "否",
+                                "data": JSON.stringify({TYPE:"BOARD",DATA: false})
+                            }
+                        }
+                    ]
+                }
+            });
+        }
+        event.reply(message);
     },
     "開燈": function (event) {
         if(relayCollector(true,"message")){
@@ -106,6 +137,20 @@ bot.on('message', function (event) {
             bot.push(event.source.userId,respone);
             console.log(event.message.text + " ====> " + respone);
         })
+    }
+});
+
+bot.on('postback', function (event) {
+    var json = JSON.parse(event.postback.data);
+    switch (json.TYPE) {
+        case "BOARD":
+            if(json.DATA){
+                connectionBoard();
+                event.reply("開發版重新連線");
+            }else{
+                event.reply("取消開發版重新連線");
+            }
+            break;
     }
 });
 
