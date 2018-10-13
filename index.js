@@ -115,7 +115,7 @@ var handle = {
             event.reply("已經是關燈狀態");
         }
     },
-    "溫溼度":function (event) {
+    "溫濕度":function (event) {
         event.reply("現在的溫度: " + dht.temperature + " 濕度: "+dht.humidity);
     }
 };
