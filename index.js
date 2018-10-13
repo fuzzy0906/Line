@@ -75,32 +75,30 @@ var handle = {
     "開發版狀態": function (event) {
         var message = [];
         message.push("開發版狀態: " + (main.isConnected ? "正常連線":"中斷連線"));
-        if(!main.isConnected){
-            message.push({
-                "type": "text",
-                "text": "是否重新連線開發版?",
-                "quickReply": {
-                    "items": [
-                        {
-                            "type": "action",
-                            "action": {
-                                "type": "postback",
-                                "label": "是",
-                                "data": JSON.stringify({TYPE:"BOARD",DATA: true})
-                            }
-                        },
-                        {
-                            "type": "action",
-                            "action": {
-                                "type": "postback",
-                                "label": "否",
-                                "data": JSON.stringify({TYPE:"BOARD",DATA: false})
-                            }
+        message.push({
+            "type": "text",
+            "text": "是否重新連線開發版?",
+            "quickReply": {
+                "items": [
+                    {
+                        "type": "action",
+                        "action": {
+                            "type": "postback",
+                            "label": "是",
+                            "data": JSON.stringify({TYPE:"BOARD",DATA: true})
                         }
-                    ]
-                }
-            });
-        }
+                    },
+                    {
+                        "type": "action",
+                        "action": {
+                            "type": "postback",
+                            "label": "否",
+                            "data": JSON.stringify({TYPE:"BOARD",DATA: false})
+                        }
+                    }
+                ]
+            }
+        });
         event.reply(message);
     },
     "開燈": function (event) {
