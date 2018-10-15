@@ -52,7 +52,7 @@ function relayCollector(status, who) {
         if (relayStatus === 'off') {
             return false;
         }
-        console.log("RelayCollector off by " + who);
+        console.log("RelayCollector status turn on by " + who);
         relay.off();
         relayStatus = 'off';
         return true;
