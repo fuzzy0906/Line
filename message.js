@@ -107,7 +107,7 @@ addMessage(function (text) {
             bot.push(userId, "找不到"+text);
         }
     });
-    return null;
+    return "正在查詢" + text;
 });
 
 addMessage(function (text) {
