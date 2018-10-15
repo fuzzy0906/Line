@@ -1,7 +1,12 @@
 const linebot = require('linebot');
 const webduino = require('./webduino.js');
 
-var bot = linebot({
+// bot = linebot({
+//     channelId: '1611395821',
+//     channelSecret: '9ef254b41a42e547e0294fd2accae9e4',
+//     channelAccessToken: 'tEiKGNqO3jaKqD1Jom0rAodKJB3M7FRr7RntWR1w6X8x9b7Il7ym7bVPtuYAPGOnD8BerCcpgjfGwWD1MCFWAU9wRkLLHQaYRl87c/y48F1CQLUrINtVf2F/U67qiaVRwAMrmRegmYe2mWVplcmP9wdB04t89/1O/w1cDnyilFU='
+// });
+bot = linebot({
     channelId: '1611515190',
     channelSecret: '342749f3c76b5380e4dc196f92346b5e',
     channelAccessToken: 'Ra1NJBqqKd/SLfLpR3DLrK4djVu9DD3uPUglecgJiHOxyuxWIpJY6UdXfWfwxxy26FS42ayJU1DSKGfs74JAofDSbXZL9/QC2v7S9tyLs33LRZteE/aaGy5nPZyaPadYTOFckTuegKBkkCG4j5UYHAdB04t89/1O/w1cDnyilFU='

@@ -34,7 +34,7 @@ addMessage(function (text) {
     return text === "開發版狀態" || text === "控制版狀態";
 }, function (event) {
     let message = [];
-    message.push("開發版狀態: " + (main.isConnected ? "正常連線" : "中斷連線"));
+    message.push("開發版狀態: " + (webduino.isConnection ? "正常連線" : "中斷連線"));
     message.push({
         "type": "text",
         "text": "是否重新連線開發版?",

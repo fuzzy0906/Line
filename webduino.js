@@ -8,7 +8,7 @@ var main;
 var pir;
 var relayStatus = 'none';
 
-function isConnectioni() {
+function isConnection() {
     return main.isConnected;
 }
 
@@ -60,7 +60,7 @@ function relayCollector(status, who) {
 }
 
 module.exports = {
-    isConnectioni: isConnectioni,
+    isConnection: isConnection,
     connectionBoard: connectionBoard,
     relayCollector: relayCollector,
     getDHT: getDHT
