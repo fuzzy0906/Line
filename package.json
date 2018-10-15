@@ -11,6 +11,7 @@
     "linebot": "^1.4.1",
     "webduino-js": "^0.4.26",
     "webduino-blockly": "^0.0.12",
-    "firebase": "^5.5.2"
+    "firebase": "^5.5.2",
+    "get-json": "^1.0.1"
   }
 }
