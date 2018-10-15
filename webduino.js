@@ -44,7 +44,7 @@ function relayCollector(status, who) {
         if (relayStatus === 'on') {
             return false;
         }
-        console.log("RelayCollector on by " + who);
+        console.log("RelayCollector status turn on by " + who);
         relay.on();
         relayStatus = 'on';
         return true;

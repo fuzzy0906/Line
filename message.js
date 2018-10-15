@@ -107,7 +107,7 @@ addMessage(function (text) {
             bot.push(userId, "找不到"+text);
         }
     });
-    return "正在查詢" + text;
+    return "開始查詢" + taget + "天氣...請稍後";
 });
 
 addMessage(function (text) {

@@ -14,6 +14,6 @@ app.get('/', function(req, res) {
 
 const server = app.listen(process.env.PORT || 8080, function () {
     let port = server.address().port;
-    // line.push('U6bb0958b3ed12c5e75b310f4192a3ed8','Server is ready');
+    bot.push('U6bb0958b3ed12c5e75b310f4192a3ed8','Server is ready');
     console.log("App now running on port", port);
 });
