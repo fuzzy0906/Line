@@ -111,6 +111,114 @@ addMessage(function (text) {
 });
 
 addMessage(function (text) {
+    return text.endsWith("景高");
+}, function (text,userId) {
+    return {
+        "type": "template",
+        "altText": "景文高中介紹",
+        "template": {
+            "type": "carousel",
+            "columns": [
+                {
+                    "thumbnailImageUrl": "https://imgur.com/pVDopY6.png",
+                    "imageBackgroundColor": "#FFFFFF",
+                    "title": "工業類科",
+                    "text": "INDUSTRY",
+                    "actions": [
+                        {
+                            "type": "uri",
+                            "label": "資訊科",
+                            "uri": "http://www.jwsh.tp.edu.tw/files/11-1000-422.php"
+                        },
+                        {
+                            "type": "postback",
+                            "label": ".",
+                            "data": JSON.stringify({TYPE:"NONE"})
+                        },
+                        {
+                            "type": "postback",
+                            "label": ".",
+                            "data": JSON.stringify({TYPE:"NONE"})
+                        }
+                    ]
+                },
+                {
+                    "thumbnailImageUrl": "https://imgur.com/qUXBf3a.png",
+                    "imageBackgroundColor": "#FFFFFF",
+                    "title": "商業類科",
+                    "text": "BUSINESS",
+                    "actions": [
+                        {
+                            "type": "uri",
+                            "label": "流通管理科",
+                            "uri": "http://www.jwsh.tp.edu.tw/files/11-1000-1730.php"
+                        },
+                        {
+                            "type": "uri",
+                            "label": "商業經營科",
+                            "uri": "http://163.21.103.15/files/11-1000-416.php"
+                        },
+                        {
+                            "type": "postback",
+                            "label": ".",
+                            "data": JSON.stringify({TYPE:"NONE"})
+                        }
+                    ]
+                },
+                {
+                    "thumbnailImageUrl": "https://imgur.com/muQmRJb.png",
+                    "imageBackgroundColor": "#FFFFFF",
+                    "title": "外語類科",
+                    "text": "ENGLISH",
+                    "actions": [
+                        {
+                            "type": "uri",
+                            "label": "應用外語科",
+                            "uri": "http://www.jwsh.tp.edu.tw/files/11-1000-419.php?Lang=zh-tw"
+                        },
+                        {
+                            "type": "postback",
+                            "label": ".",
+                            "data": JSON.stringify({TYPE:"NONE"})
+                        },
+                        {
+                            "type": "postback",
+                            "label": ".",
+                            "data": JSON.stringify({TYPE:"NONE"})
+                        }
+                    ]
+                },
+                {
+                    "thumbnailImageUrl": "https://i.imgur.com/2wUGbi2.png",
+                    "imageBackgroundColor": "#FFFFFF",
+                    "title": "設計類科",
+                    "text": "DESIGN",
+                    "actions": [
+                        {
+                            "type": "uri",
+                            "label": "廣告設計科",
+                            "uri": "http://163.21.103.15/files/11-1000-417.php"
+                        },
+                        {
+                            "type": "uri",
+                            "label": "室內設計科",
+                            "uri": "http://163.21.103.15/files/11-1000-420.php"
+                        },
+                        {
+                            "type": "uri",
+                            "label": "多媒體設計科",
+                            "uri": "http://163.21.103.15/files/11-1000-418.php"
+                        }
+                    ]
+                }
+            ],
+            "imageAspectRatio": "square",
+            "imageSize": "contain"
+        }
+    };
+});
+
+addMessage(function (text) {
     return true;
 }, function (text,userId) {
     let ref = db.ref("/" + text);
