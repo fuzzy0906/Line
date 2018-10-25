@@ -25,23 +25,41 @@ bot.on('postback', function (event) {
 });
 
 bot.on('beacon', function (event) {
-    console.log('beacon: ' + event.beacon.type);
-    var respone;
+    var msg;
     switch (event.beacon.type) {
-        case 'enter':
-            if (webduino.relayCollector(true, "beacon")) {
-                respone = '你進入教室';
-            }
+        case "enter":
+            msg = "進入教室";
             break;
-        case 'leave':
-            if (webduino.relayCollector(false, "beacon")) {
-                respone = '你進入教室';
-            }
+        case "leave":
+            msg = "離開教室";
             break;
         default:
-            respone = '我壞掉了';
+            return;
     }
-    if (respone) {
-        event.reply(respone);
+    event.reply("你" + msg);
+    if(event.source.userId != "U6bb0958b3ed12c5e75b310f4192a3ed8"){
+        bot.getUserProfile(event.source.userId).then(function (profile) {
+            bot.push("U6bb0958b3ed12c5e75b310f4192a3ed8", profile.displayName + msg);
+        })
     }
+
+    // console.log('beacon: ' + event.beacon.type);
+    // var respone;
+    // switch (event.beacon.type) {
+    //     case 'enter':
+    //         if (webduino.relayCollector(true, "beacon")) {
+    //             respone = '你進入教室';
+    //         }
+    //         break;
+    //     case 'leave':
+    //         if (webduino.relayCollector(false, "beacon")) {
+    //             respone = '你離開教室';
+    //         }
+    //         break;
+    //     default:
+    //         respone = '我壞掉了';
+    // }
+    // if (respone) {
+    //     event.reply(respone);
+    // }
 });
