@@ -42,7 +42,6 @@ bot.on('beacon', function (event) {
             bot.push("U6bb0958b3ed12c5e75b310f4192a3ed8", profile.displayName + msg);
         })
     }
-
     // console.log('beacon: ' + event.beacon.type);
     // var respone;
     // switch (event.beacon.type) {
