@@ -21,8 +21,8 @@ function connectionBoard() {
         main = board;
         board.systemReset();
         board.samplingInterval = 50;
-        relay = getRelay(board, 10);
-        dht = getDht(board, 11);
+        relay = getRelay(board, 11);
+        dht = getDht(board, 10);
         pir = getPir(board, 7);
         relayCollector(false, "init");
         dht.read(function (evt) {
