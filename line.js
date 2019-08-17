@@ -3,8 +3,8 @@ const webduino = require('./webduino.js');
 
 bot = linebot({
     channelId: '1611515190',
-    channelSecret: '342749f3c76b5380e4dc196f92346b5e',
-    channelAccessToken: 'Ra1NJBqqKd/SLfLpR3DLrK4djVu9DD3uPUglecgJiHOxyuxWIpJY6UdXfWfwxxy26FS42ayJU1DSKGfs74JAofDSbXZL9/QC2v7S9tyLs33LRZteE/aaGy5nPZyaPadYTOFckTuegKBkkCG4j5UYHAdB04t89/1O/w1cDnyilFU='
+    channelSecret: '8cba55586e414817d198141ad975cd4b',
+    channelAccessToken: 'g876X+5/6uQUQh0AkyEQDR0NrbiGJs6Z1Ix5c7jGtynE2Q8LnHDEPTDQfzlcxAU06FS42ayJU1DSKGfs74JAofDSbXZL9/QC2v7S9tyLs33ShKz74/z3jx9ljlE5q/gsQpa5ouF2CAxhDKsRbakzMAdB04t89/1O/w1cDnyilFU='
 });
 
 const message = require('./message.js');
