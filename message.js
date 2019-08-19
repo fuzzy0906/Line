@@ -86,7 +86,7 @@ addMessage(function (text) {
     return text === "溫濕度" || text === "溫溼度";
 }, function (event, text) {
     var dht = webduino.getDHT();
-    return "現在的溫度: " + dht.temperature + "    現在的濕度: " + dht.humidity;
+    return "現在的溫度: " + dht.temperature + "      現在的濕度: " + dht.humidity;
 });
 
 addMessage(function (text) {
