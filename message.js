@@ -93,7 +93,8 @@ addMessage(function (text) {
     return text.endsWith("天氣");
 }, function (text,userId) {
     let taget = text.replace("天氣","");
-    getJson('http://opendata.epa.gov.tw/ws/Data/ATM00698/?$format=json', function(error, response){
+    getJson('http://opendata2.epa.gov.tw/AQX.json', function(error, response){
+    //getJson('http://opendata.epa.gov.tw/ws/Data/ATM00698/?$format=json', function(error, response){
         let find = false;
         for(let i = 0 ; i < response.length ; i++){
             let data = response[i];
